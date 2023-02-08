@@ -1,5 +1,43 @@
-<div class="container" role="banner">
-
+<div class="container-fluid">
+    <div class="row">
+      <h1 class="title">todos</h1>
+    </div>
+    <div class="row f-center f-direction">
+        <div class="bg shadow todo-w">
+          <input id="toggle-all" class="toggle-all" type="checkbox">
+          <label for="all"></label>
+          <input type="text" class="new-todo" placeholder="What needs to be done?" autofocus>
+        </div>
+        <section class="main shadow">
+          <div class="bg todo-w">
+            <div class="item">
+              <input id="1" class="toggle" type="checkbox">
+              <label for="1" class="box">sfsfsfs</label>
+              <button class="destroy"></button>
+            </div>
+            <div class="item completed">
+              <input id="2" class="toggle" type="checkbox">
+              <label for="2" class="box">22222</label>
+              <button class="destroy"></button>
+            </div>
+          </div>
+          <div class="footer" >
+            <span class="todo-count"><strong>1</strong> item left</span>
+            <ul class="filters">
+              <li>
+                <a href="#/" class="selected">All</a>
+              </li>
+              <li>
+                <a href="#/active">Active</a>
+              </li>
+              <li>
+                <a href="#/completed">Completed</a>
+              </li>
+            </ul>
+            <button class="clear-completed" style="display: none;"></button>
+          </div>
+        </section>
+    </div>
 </div>
 
 <router-outlet></router-outlet>
