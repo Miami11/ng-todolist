@@ -1,0 +1,123 @@
+.item {
+    position: relative;
+    font-size: 24px;
+    border-bottom: 1px solid #ededed;
+    padding: 14px 16px 10px 10px;
+   
+}
+.item .toggle {
+    padding: 0;
+    height: initial;
+    width: initial;
+    margin-bottom: 0;
+    display: none;
+    cursor: pointer;
+}
+.item.completed label {
+	color: #d9d9d9;
+	text-decoration: line-through;
+}
+.item .box {
+    position: relative;
+    cursor: pointer;
+}
+.item .box:before {
+    content:'';
+    -webkit-appearance: none;
+    background-color: transparent;
+    border: 1px solid #e3dede;
+    border-radius: 50%;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05), inset 0px -15px 10px -12px rgba(0, 0, 0, 0.05);
+    padding: 14px;
+    display: inline-block;
+    position: relative;
+    vertical-align: middle;
+    cursor: pointer;
+    margin-right: 20px;
+}
+
+.item .toggle:checked + .box:after {
+    content: '';
+    display: block;
+    position: absolute;
+    top: 4px;
+    left: 11px;
+    width: 8px;
+    height: 19px;
+    border: solid #5ec2af;
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+}
+.item .destroy {
+    display: none;
+    position: absolute;
+    top: 0;
+    right: 10px;
+    bottom: 0;
+    width: 40px;
+    height: 40px;
+    margin: auto 0;
+    font-size: 30px;
+    color: #cc9a9a;
+    margin-bottom: 11px;
+    transition: color 0.2s ease-out;
+    border: none;
+    background: transparent;
+}
+
+.item .destroy:hover {
+	color: #af5b5e;
+}
+
+.item .destroy:after {
+	content: '×';
+}
+
+.item:hover .destroy {
+	display: block;
+}
+
+.item div .edit {
+	display: none;
+}
+
+.item div.editing:last-child {
+	margin-bottom: -1px;
+}
+.toggle-all + label:before {
+    content: '❯';
+    font-size: 22px;
+    color: #e6e6e6;
+    padding: 10px 27px 10px 27px;
+}
+.toggle-all {
+	width: 1px;
+	height: 1px;
+	border: none; 
+	opacity: 0;
+	position: absolute;
+	right: 100%;
+	bottom: 100%;
+}
+
+.toggle-all + label {
+	width: 60px;
+	height: 34px;
+	font-size: 0;
+	position: absolute;
+	top: 16px;
+	left: -13px;
+	-webkit-transform: rotate(90deg);
+	transform: rotate(90deg);
+}
+
+.toggle-all + label:before {
+	content: '❯';
+	font-size: 22px;
+	color: #e6e6e6;
+	padding: 10px 27px 10px 27px;
+}
+
+.toggle-all:checked + label:before {
+	color: #737373;
+}
