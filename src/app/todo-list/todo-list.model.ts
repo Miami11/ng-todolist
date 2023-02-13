@@ -1,5 +1,5 @@
 export interface TodoList {
-    id?: number;
+    id?: any;
     content: string;
     status: number;
 }

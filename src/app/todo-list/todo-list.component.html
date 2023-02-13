@@ -1,27 +1,27 @@
 <div class="row f-center f-direction">
     <div class="bg shadow todo-w">
-      <input id="toggle-all" class="toggle-all" type="checkbox">
-      <label for="all"></label>
+      <input #all id="toggle-all" class="toggle-all" type="checkbox">
+      <label for="toggle-all" (click)="toggleAll(all)"></label>
       <input type="text" (keyup)="addTodo($event)" class="new-todo" placeholder="What needs to be done?" autofocus>
     </div>
     <section class="main shadow" *ngIf="loadedList.length >= 1 && !isLoading">
       <div class="bg todo-w">
-        <app-todo *ngFor="let todo of loadedList"></app-todo>
+        <app-todo (todoId)="deleteId($event)" *ngFor="let item of showList()" [todo]="item"></app-todo>
       </div>
       <div class="footer" >
-        <span class="todo-count"><strong>1</strong> item left</span>
+        <span class="todo-count"><strong>{{ countActive() }}</strong> item left</span>
         <ul class="filters">
           <li>
-            <a href="#/" class="selected">All</a>
+            <a class="selected" (click)="showStatus=-1">All</a>
           </li>
           <li>
-            <a href="#/active">Active</a>
+            <a (click)="showStatus=0">Active</a>
           </li>
           <li>
-            <a href="#/completed">Completed</a>
+            <a (click)="showStatus=1">Completed</a>
           </li>
         </ul>
-        <button class="clear-completed" style="display: none;"></button>
+        <button class="clear-completed" [ngStyle]="{ display: findCompleted()? 'block': 'none'}" (click)="clearComplete"></button>
       </div>
     </section>
 </div>
