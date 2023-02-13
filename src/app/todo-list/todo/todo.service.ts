@@ -17,4 +17,8 @@ export class TodoService {
     val.status = statusVal;
     return this.http.patch(`http://localhost:8888/data/${val.id}`, { status: statusVal })
   }
+  update(id:any, val:any){
+    return this.http.patch(`http://localhost:8888/data/${id}`, { content: val })
+  }
+
 }

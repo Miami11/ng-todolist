@@ -1,5 +1,14 @@
-<div class="item" [class.completed]="todo.status === 1">
-    <input #deleteItem [id]="todo.id" class="toggle" type="checkbox" (click)="toggleStatus(todo)" [checked]="todo.status === 1">
-    <label [for]="todo.id" class="box">{{ todo.content }}</label>
-    <button class="destroy" (click)="deleteTodo(deleteItem)"></button>
+<div class="item" [class]="{completed: todo.status === 1, editing: editing}">
+    <input #todoItem [id]="todo.id" class="toggle" type="checkbox" (click)="toggleStatus(todo)" [checked]="todo.status === 1">
+    <label [for]="todo.id" *ngIf="!editing" (dblclick)="edit(todo.id)" class="box">{{ todo.content }}</label>
+    <input
+    class="edit"
+    #editedtodo
+    [hidden]="!editing"
+    [value]="todo.content"
+    (blur)="update(editedtodo.value)"
+    (keyup.enter)="update(editedtodo.value)"
+    (keyup.escape)="cancelEditing()"
+  >
+    <button class="destroy" (click)="deleteTodo(todoItem)"></button>
 </div>
