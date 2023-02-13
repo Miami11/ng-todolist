@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpResponse } from '@angular/common/http';
-import { Todo } from './todo.model';
+
 @Injectable({
   providedIn: 'root'
 })
 export class TodoService {
-  private list:Todo[] = [];
+  private list = [];
   constructor(private http: HttpClient) { }
   delete(id: any){
     console.log(id,'delete id: ');

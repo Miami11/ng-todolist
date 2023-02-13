@@ -34,6 +34,7 @@ export class TodoListComponent implements OnInit {
       this.isLoading = false;
       this.loadedList = todoList;
       this.showStatus = -1;
+      this.fetchInitData();
     })
   }
   showList(){
@@ -60,10 +61,12 @@ export class TodoListComponent implements OnInit {
           item.status = 2;
         })  
       }
-      this.loadedList = this.loadedList.filter((item,index)=>{
-        return item.status != 2
-      }) 
     })
+
+    this.loadedList = this.loadedList.filter((item)=>{
+      return item.status == 0
+    }) 
+
   }
   deleteId($event: any){
     let idx = this.loadedList.findIndex(item => {

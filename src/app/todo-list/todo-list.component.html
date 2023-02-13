@@ -24,7 +24,7 @@
         <button class="clear-completed" [ngStyle]="{ display: findCompleted()? 'block': 'none'}"  (click)="clearComplete()">Clear completed</button>
       </div>
     </section>
-    <nav aria-label="Page navigation">
+    <nav aria-label="Page navigation" *ngIf="totalTodoCount > pageItemLimit">
       <ul class="pagination">
         <li>
           <a (click)="goPrevious()" href="#" aria-label="Previous">
