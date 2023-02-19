@@ -6,19 +6,19 @@
     </div>
     <section class="main shadow" *ngIf="loadedList.length >= 1 && !isLoading">
       <div class="bg todo-w">
-        <app-todo (todoId)="deleteId($event)" (updateTodo)="updateTodoItem($event)" *ngFor="let item of showList()" [todo]="item"></app-todo>
+        <app-todo (statusVal)="statusUpdate($event)"  (todoId)="deleteId($event)" (updateTodo)="updateTodoItem($event)"  *ngFor="let item of showList()" [todo]="item"></app-todo>
       </div>
       <div class="footer" >
         <span class="todo-count"><strong>{{ countActive() }}</strong> item left</span>
         <ul class="filters">
           <li>
-            <a [class.selected]="showStatus == -1" (click)="showStatus=-1">All</a>
+            <a [class.selected]="showStatus == -1" (click)="changeStatus(-1)">All</a>
           </li>
           <li>
-            <a [class.selected]="showStatus == 0" (click)="showStatus=0">Active</a>
+            <a [class.selected]="showStatus == 0" (click)="changeStatus(0)">Active</a>
           </li>
           <li>
-            <a [class.selected]="showStatus == 1" (click)="showStatus=1">Completed</a>
+            <a [class.selected]="showStatus == 1" (click)="changeStatus(1)">Completed</a>
           </li>
         </ul>
         <button class="clear-completed" [ngStyle]="{ display: findCompleted()? 'block': 'none'}"  (click)="clearComplete()">Clear completed</button>
