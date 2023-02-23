@@ -18,7 +18,6 @@ export class TodoListService {
     );
   }
   changeStatus(id: any, statusVal: number) {
-    console.log(id, 'id, statusval=', statusVal);
     return this.http.patch(`http://localhost:8888/data/${id}`, {
       status: statusVal,
     });

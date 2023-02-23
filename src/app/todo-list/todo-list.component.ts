@@ -20,9 +20,11 @@ export class TodoListComponent implements OnInit {
   totalTodoCount: number = 0;
   pageSize: number = 1;
   pageItemLimit: number = 5;
+  countTodo: number = 0;
 
   goPage(page: number) {
     this.page = page;
+    this.showList();
   }
   fetchLists() {
     this.isLoading = true;
@@ -44,29 +46,47 @@ export class TodoListComponent implements OnInit {
     if (this.showStatus == -1) {
       return this.loadedList.slice(start, end);
     } else {
-      return this.loadedList
+      const item = this.loadedList
         .filter((todo) => {
           return todo.status == this.showStatus;
         })
         .slice(start, end);
+      if (item.length == 0 && this.page > 1) {
+        this.pageSize = this.pageSize - 1;
+        this.goPage(1);
+        return this.loadedList
+          .filter((todo) => {
+            return todo.status == this.showStatus;
+          })
+          .slice(0, 5);
+      }
+      return item;
     }
   }
-  statusUpdate($event: any) {
-    this.changeStatus(this.showStatus);
+  statusUpdate(data: any) {
+    const index = this.loadedList.findIndex(
+      (todo) => todo.content == data.content
+    );
+    this.loadedList[index]['status'] = data.status;
+    this.updateCountStatusList();
   }
-  changeStatus(val: number) {
+  changeTab(val: number) {
     this.showStatus = val;
+    this.updateCountStatusList();
+    this.goPage(1);
+  }
+  updateCountStatusList() {
     let countStatusList = 0;
-    if (val == -1) {
+    if (this.showStatus == -1) {
       countStatusList = this.loadedList.length;
     } else {
       countStatusList = this.loadedList.filter(
         (item) => item.status == this.showStatus
       ).length;
     }
-    this.page = 1;
     this.updatePage(countStatusList);
   }
+
   findCompleted() {
     return this.showList().filter((todo) => todo.status === 1).length > 0;
   }
@@ -82,7 +102,15 @@ export class TodoListComponent implements OnInit {
       return item.id == $event;
     });
     this.loadedList.splice(idx, 1);
-    this.updatePage((this.totalTodoCount = this.totalTodoCount - 1));
+    this.dataCount();
+    this.updatePage(this.totalTodoCount - 1);
+  }
+  dataCount() {
+    let dataCount = this.showList().length;
+    if (dataCount < 1) {
+      this.page = this.page - 1;
+      this.goPage(this.page);
+    }
   }
   updateTodoItem($event: any) {
     const { id, content } = $event;
@@ -97,9 +125,8 @@ export class TodoListComponent implements OnInit {
       this.loadedList = this.loadedList.filter((item) => {
         return item.status == 0;
       });
-      this.updatePage(
-        (this.totalTodoCount = this.totalTodoCount - completedList.length)
-      );
+      this.updatePage(this.totalTodoCount - completedList.length);
+      this.dataCount();
     });
   }
 
@@ -137,13 +164,15 @@ export class TodoListComponent implements OnInit {
       const todo = todoItem.value.trim();
       if (todo.length !== 0) {
         this.todoListService.add(todo, 0).subscribe(() => {
+          this.countTodo = this.countTodo + 1;
           todoItem.value = '';
           this.page = 1;
-          this.loadedList.splice(4, 1);
-          this.todoListService.fetchFirst().subscribe((res: any) => {
-            this.loadedList.unshift(...res);
+          this.loadedList.unshift({
+            id: this.countTodo,
+            content: todo,
+            status: 0,
           });
-          this.updatePage((this.totalTodoCount = this.totalTodoCount + 1));
+          this.updatePage(this.totalTodoCount + 1);
         });
       }
     }

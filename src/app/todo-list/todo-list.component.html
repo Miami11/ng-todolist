@@ -12,13 +12,13 @@
         <span class="todo-count"><strong>{{ countActive() }}</strong> item left</span>
         <ul class="filters">
           <li>
-            <a [class.selected]="showStatus == -1" (click)="changeStatus(-1)">All</a>
+            <a [class.selected]="showStatus == -1" (click)="changeTab(-1)">All</a>
           </li>
           <li>
-            <a [class.selected]="showStatus == 0" (click)="changeStatus(0)">Active</a>
+            <a [class.selected]="showStatus == 0" (click)="changeTab(0)">Active</a>
           </li>
           <li>
-            <a [class.selected]="showStatus == 1" (click)="changeStatus(1)">Completed</a>
+            <a [class.selected]="showStatus == 1" (click)="changeTab(1)">Completed</a>
           </li>
         </ul>
         <button class="clear-completed" [ngStyle]="{ display: findCompleted()? 'block': 'none'}"  (click)="clearComplete()">Clear completed</button>
